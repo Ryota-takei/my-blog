@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "myblog9c6e5971": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
