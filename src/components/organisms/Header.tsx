@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
 import { BsPencilSquare } from "react-icons/bs";
 
-import { selectAdmin } from "../../features/User/userSlice";
+import { selectAdmin } from "../../features/user/userSlice";
 import { useSelector } from "react-redux";
 
 export const Header = () => {
@@ -17,7 +17,7 @@ export const Header = () => {
         padding={{ base: 3, md: 5 }}
         mb="5"
       >
-        <Flex align="center" as="a" mr={8} _hover={{ cursor: "pointer" }}>
+        <Flex align="center" mr={8} _hover={{ cursor: "pointer" }}>
           <Link to={admin ? "/adminUser" : "/"}>
             <Heading as="h1" fontSize={{ base: "md", md: "lg" }}>
               {admin ? "Admin Page" : "My struggles"}
@@ -37,7 +37,7 @@ export const Header = () => {
                 </Box>
               )}
 
-              {admin ? "新規投稿" : "Home"}
+              {admin ? "新規画面" : "Home"}
             </Link>
           </Box>
         </Flex>

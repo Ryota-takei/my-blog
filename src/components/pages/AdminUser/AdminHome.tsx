@@ -1,20 +1,18 @@
 import { Box, SimpleGrid } from "@chakra-ui/layout";
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BlogCard } from "../../organisms/BlogCard";
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { useSelector } from "react-redux";
-import { selectAdmin } from "../../../features/User/userSlice";
+import { selectAdmin } from "../../../features/user/userSlice";
 import { UseGetAdmin } from "../../../hooks/UseGetAdmin";
 
-const AdminHome: React.VFC = () => {
+const AdminHome: React.VFC = memo(() => {
   const admin = useSelector(selectAdmin);
   const { getUserInfo } = UseGetAdmin();
   useEffect(() => {
     getUserInfo();
   }, []);
-
-  console.log(admin);
 
   return (
     <Box w={{ base: "90%", md: "70%" }} mx="auto" h="100vh">
@@ -31,6 +29,6 @@ const AdminHome: React.VFC = () => {
       <AmplifySignOut />
     </Box>
   );
-};
+});
 
 export default withAuthenticator(AdminHome);

@@ -5,11 +5,11 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { GrUpdate } from "react-icons/gr";
 import { BsTrash } from "react-icons/bs";
 import { useSelector } from "react-redux";
-import { selectAdmin } from "../../../features/User/userSlice";
-import { useEffect } from "react";
+import { selectAdmin } from "../../../features/user/userSlice";
+import { memo, useEffect } from "react";
 import { UseGetAdmin } from "../../../hooks/UseGetAdmin";
 
-export const Blog: React.VFC = () => {
+export const Blog: React.VFC = memo(() => {
   const admin = useSelector(selectAdmin);
   const { getUserInfo } = UseGetAdmin();
 
@@ -82,4 +82,4 @@ export const Blog: React.VFC = () => {
       </Box>
     </>
   );
-};
+});
