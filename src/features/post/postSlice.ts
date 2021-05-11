@@ -1,27 +1,107 @@
-// import { createSlice } from '@reduxjs/toolkit';
-// import { RootState } from '../../app/store';
+import API, { graphqlOperation } from "@aws-amplify/api";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
+import { searchPosts } from "../../graphql/queries";
+import { Posts } from "../../types/posts";
+import { Post } from "../../types/post";
 
-// export interface UserState {
-//  admin: boolean
-// }
+export type PostsState = {
+  posts: Post[];
+  selectPost: Post;
+};
 
-// const initialState: UserState = {
-//   admin: false
-// };
-// export const userSlice = createSlice({
-//   name: 'user',
-//   initialState,
-//   reducers: {
-//     changeAdmin:(state) => {
-//       state.admin = true
-//     }
-//   },
-// });
+const initialState: PostsState = {
+  posts: [],
+  selectPost: { id: "", body: "", createdAt: "", title: "", updatedAt: "" },
+};
 
-// export const { changeAdmin } = userSlice.actions;
+const querySort = Object.assign(
+  {},
+  {
+    sort: {
+      field: "createdAt",
+      direction: "desc",
+    },
+    limit: 100,
+  }
+);
+function getUniqueStr(myStrong?: number): string {
+  let strong = 1000;
+  if (myStrong) strong = myStrong;
+  return (
+    new Date().getTime().toString(16) +
+    Math.floor(strong * Math.random()).toString(16)
+  );
+}
+export const getPostsAsync = createAsyncThunk(
+  "post/getPostsAsync",
+  async () => {
+    try {
+      const res = (await API.graphql(
+        graphqlOperation(searchPosts, querySort)
+      )) as Posts;
+      console.log(res);
+      const response = res.data.searchPosts.items;
+      return response;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
 
-// export const selectAdmin = (state: RootState) => state.user.admin;
+export const postSlice = createSlice({
+  name: "post",
+  initialState,
+  reducers: {
+    deletePostFromGlobal: (state, action) => {
+      const newPosts = state.posts?.filter(
+        (post) => post.id !== action.payload
+      );
+      state.posts = newPosts;
+    },
+    createNewPost: (state, action) => {
+      const newPost = {
+        id: getUniqueStr(),
+        body: action.payload.body,
+        createdAt: action.payload.createdAt,
+        title: action.payload.title,
+        updatedAt: action.payload.updatedAt,
+      };
+      console.log(typeof state.posts);
+      if (newPost) {
+        state.posts = [newPost, ...state.posts];
+      }
+    },
+    editPost: (state, action) => {
+      const posts = state.posts.filter((post) => post.id !== action.payload.id);
+      state.posts = [action.payload, ...posts];
+    },
+    setSelectPost: (state, action) => {
+      const selectPost = state.posts.find((post) => post.id === action.payload);
+      if (selectPost) {
+        state.selectPost = selectPost;
+      }
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getPostsAsync.fulfilled, (state, action) => {
+        state.posts = action.payload;
+        console.log(action.payload);
+      })
+      .addCase(getPostsAsync.rejected, (action) => {
+        alert(action);
+      });
+  },
+});
 
-// export default userSlice.reducer;
+export const {
+  deletePostFromGlobal,
+  createNewPost,
+  setSelectPost,
+  editPost,
+} = postSlice.actions;
+export const selectPosts = (state: RootState) => state.post.posts;
+export const selectSelectPosts = (state: RootState) => state.post.selectPost;
 
-export const postslice = () => {};
+export default postSlice.reducer;

@@ -5,27 +5,49 @@ import { AiFillEye } from "react-icons/ai";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { FootButtonLayout } from "../../molecules/FootButtonLayout";
 import { TextEditer } from "../../organisms/TextEditer";
-import { UseHandleSubmit } from "../../../hooks/UseHandleSubmit";
+import { useDispatch, useSelector } from "react-redux";
+import { editPost, selectSelectPosts } from "../../../features/post/postSlice";
+import moment from "moment";
+import API, { graphqlOperation } from "@aws-amplify/api";
+import { updatePost } from "../../../graphql/mutations";
+import { Post } from "../../../types/post";
+import { useHistory } from "react-router";
 import { UseGetAdmin } from "../../../hooks/UseGetAdmin";
 
-export const NewPosts: React.VFC = memo(() => {
-  const StorageKey = "NewPosts";
+export const EditPosts: React.VFC = memo(() => {
+  const selectPost = useSelector(selectSelectPosts);
+  const StorageKey = "EditPosts";
   const [preview, setPreview] = useState(false);
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(selectPost.title);
+  const [content, setContent] = useState<string>(selectPost.body);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const data = moment().format("YYYY-MM-DD");
   const { isAdminCheck } = UseGetAdmin();
-  const [content, setContent] = useState<string>(
-    localStorage.getItem(StorageKey) || ""
-  );
-  const { handleSubmit } = UseHandleSubmit(
-    StorageKey,
-    content,
-    setContent,
-    title,
-    setTitle
-  );
+
   useEffect(()=>{
     isAdminCheck()
   },[])
+
+  const handleSubmit = async () => {
+    const input: Post = {
+      id: selectPost.id,
+      title,
+      body: content,
+      createdAt: selectPost.createdAt,
+      updatedAt: data,
+    };
+
+    try {
+      await API.graphql(graphqlOperation(updatePost, { input }));
+      dispatch(editPost(input));
+      history.push("/adminUser");
+      setContent("");
+      setTitle("");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <Box w="100%" mx="auto" bg="white">
@@ -59,7 +81,7 @@ export const NewPosts: React.VFC = memo(() => {
         content={content}
         setContent={setContent}
       />
-      <FootButtonLayout status="新規投稿" handleSubmit={handleSubmit} />
+      <FootButtonLayout status="更新する" handleSubmit={handleSubmit} />
     </Box>
   );
 });
