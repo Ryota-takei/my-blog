@@ -40,6 +40,7 @@ export const getPost = /* GraphQL */ `
         items {
           id
           postID
+          name
           createdAt
           content
           updatedAt
@@ -100,6 +101,7 @@ export const getComment = /* GraphQL */ `
     getComment(id: $id) {
       id
       postID
+      name
       createdAt
       content
       updatedAt
@@ -131,6 +133,7 @@ export const listComments = /* GraphQL */ `
       items {
         id
         postID
+        name
         createdAt
         content
         updatedAt
@@ -166,6 +169,7 @@ export const searchComments = /* GraphQL */ `
       items {
         id
         postID
+        name
         createdAt
         content
         updatedAt

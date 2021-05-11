@@ -8,13 +8,13 @@ type Post
         provider: userPools
         operations: [read, create, update, delete]
       }
-      { allow: public, operations: [read] }
+      { allow: public, provider: apiKey, operations: [read] }
     ]
   ) {
   id: ID!
   title: String!
   body: String!
-  createdAt: AWSDateTime!
+  createdAt: AWSDate!
   comments: [Comment] @connection(fields: ["id"])
   likes: [Like] @connection(fields: ["id"])
 }
@@ -29,13 +29,14 @@ type Comment
         provider: userPools
         operations: [read, create, update, delete]
       }
-      { allow: public, operations: [read, create] }
+      { allow: public, provider: apiKey, operations: [read, create] }
     ]
   ) {
   id: ID!
   postID: ID!
+  name: String!
   post: Post @connection(fields: ["postID"])
-  createdAt: AWSDateTime!
+  createdAt: AWSDate!
   content: String!
 }
 
@@ -43,12 +44,8 @@ type Like
   @model
   @auth(
     rules: [
-      {
-        allow: owner
-        provider: userPools
-        operations: [read, create]
-      }
-      { allow: public, operations: [read, create] }
+      { allow: owner, provider: userPools, operations: [read, create] }
+      { allow: public, provider: apiKey, operations: [read, create] }
     ]
   ) {
   id: ID!

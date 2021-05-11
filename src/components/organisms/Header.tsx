@@ -1,10 +1,8 @@
 import { Box, Flex, Heading } from "@chakra-ui/layout";
 import { Link } from "react-router-dom";
-import { AiOutlineHome } from "react-icons/ai";
-import { BsPencilSquare } from "react-icons/bs";
-
 import { selectAdmin } from "../../features/user/userSlice";
 import { useSelector } from "react-redux";
+import { HeaderMenu } from "../molecules/HeaderMenu";
 
 export const Header = () => {
   const admin = useSelector(selectAdmin);
@@ -19,28 +17,15 @@ export const Header = () => {
       >
         <Flex align="center" mr={8} _hover={{ cursor: "pointer" }}>
           <Link to={admin ? "/adminUser" : "/"}>
-            <Heading as="h1" fontSize={{ base: "md", md: "lg" }}>
+            <Heading as="h1" fontSize={{ base: "sm", sm: "md", md: "lg" }}>
               {admin ? "Admin Page" : "My struggles"}
             </Heading>
           </Link>
         </Flex>
-        <Flex align="center" fontSize="sm" flexGrow={2} display="flex">
-          <Box pr={4} ml="auto" mr={{ base: "30px", md: "45px" }}>
-            <Link to={admin? "/adminUser/newPosts" :"/"}>
-              {admin ? (
-                <Box ml="15px">
-                  <BsPencilSquare size="25px" />
-                </Box>
-              ) : (
-                <Box ml="5px">
-                  <AiOutlineHome size="25px" />
-                </Box>
-              )}
-
-              {admin ? "新規画面" : "Home"}
-            </Link>
-          </Box>
-        </Flex>
+        <HeaderMenu admin={admin} base="none" md="block" />
+      </Flex>
+      <Flex　justifyContent="center" bg="gray.50"w="100%" position="fixed" bottom="0px" alignItems="center"　h="50px">
+        <HeaderMenu admin={admin} base="block" md="none" />
       </Flex>
     </>
   );
