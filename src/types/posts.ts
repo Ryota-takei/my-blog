@@ -3,11 +3,12 @@ export type Posts = {
     searchPosts: {
       items: [
         {
-          id: String;
-          body: String;
-          createdAt: String;
+          id: string;
+          body: string;
+          createdAt: string;
           title: string;
-          updatedAt: String;
+          updatedAt: string;
+          image: string;
         }
       ];
     };

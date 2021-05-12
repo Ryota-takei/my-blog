@@ -7,11 +7,13 @@ import { FootButtonLayout } from "../../molecules/FootButtonLayout";
 import { TextEditer } from "../../organisms/TextEditer";
 import { UseHandleSubmit } from "../../../hooks/UseHandleSubmit";
 import { UseGetAdmin } from "../../../hooks/UseGetAdmin";
+import { API, Storage } from "aws-amplify";
 
 export const NewPosts: React.VFC = memo(() => {
   const StorageKey = "NewPosts";
   const [preview, setPreview] = useState(false);
   const [title, setTitle] = useState("");
+  const [imageName, setImageName] = useState("");
   const { isAdminCheck } = UseGetAdmin();
   const [content, setContent] = useState<string>(
     localStorage.getItem(StorageKey) || ""
@@ -21,11 +23,27 @@ export const NewPosts: React.VFC = memo(() => {
     content,
     setContent,
     title,
-    setTitle
+    setTitle,
+    imageName,
+    setImageName
   );
-  useEffect(()=>{
-    isAdminCheck()
-  },[])
+  useEffect(() => {
+    isAdminCheck();
+  }, []);
+
+  const onChangePhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("testes");
+    if (e.target.files !== null) {
+      if (!e.target.files[0]) return;
+      const file = e.target.files[0];
+      try {
+        await Storage.put(file.name, file);
+        setImageName(file.name);
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+  };
 
   return (
     <Box w="100%" mx="auto" bg="white">
@@ -59,7 +77,11 @@ export const NewPosts: React.VFC = memo(() => {
         content={content}
         setContent={setContent}
       />
-      <FootButtonLayout status="新規投稿" handleSubmit={handleSubmit} />
+      <FootButtonLayout
+        status="新規投稿"
+        handleSubmit={handleSubmit}
+        onChangePhoto={onChangePhoto}
+      />
     </Box>
   );
 });

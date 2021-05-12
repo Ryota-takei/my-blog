@@ -1,36 +1,28 @@
-import { Box, Flex, Text } from '@chakra-ui/layout'
-import React, { memo } from 'react'
-import { FaUpload } from 'react-icons/fa'
+import { Flex } from "@chakra-ui/layout";
+import React, { memo } from "react";
+
+import { PrimaryButton } from "../atoms/PrimaryButton";
+import { SecondaryButton } from "../atoms/SecondaryButton";
 
 type Props = {
-  handleSubmit:() => void,
-  status: String
-}
+  handleSubmit: () => void;
+  status: string;
+  display?: string;
+  onChangePhoto?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
-export const FootButtonLayout:React.VFC<Props> = memo((props) => {
-  const {handleSubmit, status} = props
+export const FootButtonLayout: React.VFC<Props> = memo((props) => {
+  const { handleSubmit, status, display, onChangePhoto } = props;
   return (
-    <Box bg="gray.50" h="50px" pt="2">
-    <Box
-      bg="green.400"
-      h="37px"
-      w="110px"
-      color="white"
-      borderRadius="3px"
-      ml="auto"
-      mr="10px"
-      _hover={{ cursor: "pointer", opacity: "0.7" }}
-      onClick={handleSubmit}
-    >
-      <Flex p="1" ml="1" textAlign="center" mt="5px">
-        <Box mt="6px">
-          <FaUpload color="white" />
-        </Box>
-        <Text mt="3px" ml="2" color="white">
-          {status}
-        </Text>
-      </Flex>
-    </Box>
-    </Box>
-  )
-})
+    <Flex bg="gray.50" h="50px" pt="2" justifyContent="flex-end">
+      <SecondaryButton
+        color="gray.500"
+        onChangePhoto={onChangePhoto}
+        status="画像投稿"
+        display={display}
+        type="file"
+      />
+      <PrimaryButton color="green.400" submit={handleSubmit} status={status} />
+    </Flex>
+  );
+});

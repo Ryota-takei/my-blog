@@ -8,10 +8,12 @@ import API, { graphqlOperation } from "@aws-amplify/api";
 
 export const UseHandleSubmit = (
   StorageKey: string,
-  content: String,
+  content: string,
   setContent: React.Dispatch<React.SetStateAction<string>>,
   title: string,
-  setTitle: React.Dispatch<React.SetStateAction<string>>
+  setTitle: React.Dispatch<React.SetStateAction<string>>,
+  imageName: string | undefined = undefined,
+  setImageName: React.Dispatch<React.SetStateAction<string>>
 ) => {
   const toast = useToast();
   const dispatch = useDispatch();
@@ -39,11 +41,13 @@ export const UseHandleSubmit = (
       body: content,
       createdAt: data,
       updatedAt: data,
+      image: imageName,
     };
     try {
       await API.graphql(graphqlOperation(createPost, { input }));
       setContent("");
       setTitle("");
+      setImageName("");
       localStorage.setItem(StorageKey, "");
       dispatch(createNewPost(input));
       history.push("/adminUser");

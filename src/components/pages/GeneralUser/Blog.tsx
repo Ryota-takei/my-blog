@@ -1,9 +1,5 @@
 import { Image } from "@chakra-ui/image";
-import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
-import { AiOutlineClockCircle, AiOutlineHeart } from "react-icons/ai";
-import { AiOutlineEdit } from "react-icons/ai";
-import { GrUpdate } from "react-icons/gr";
-import { BsTrash } from "react-icons/bs";
+import { Box } from "@chakra-ui/layout";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAdmin } from "../../../features/user/userSlice";
 import { memo, useEffect, useRef, useState } from "react";
@@ -11,23 +7,15 @@ import { UseGetAdmin } from "../../../hooks/UseGetAdmin";
 import { Post } from "../../../types/post";
 import "../../../reset.css";
 import marked from "marked";
-import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogOverlay,
-} from "@chakra-ui/modal";
-import { Button } from "@chakra-ui/button";
-import { graphqlOperation } from "@aws-amplify/api-graphql";
-import { deletePost } from "../../../graphql/mutations";
-import API from "@aws-amplify/api";
 import { useHistory } from "react-router";
-import {
-  deletePostFromGlobal,
-  setSelectPost,
-} from "../../../features/post/postSlice";
+import { setSelectPost } from "../../../features/post/postSlice";
+import no_image from "../../../images/no_image.jpeg";
+import { UseGetUrl } from "../../../hooks/UseGetUrl";
+import { UseDeletePost } from "../../../hooks/UseDeletePost";
+import { Dialog } from "../../molecules/Dialog";
+import { PostAdminFunction } from "../../molecules/PostAdminFunction";
+import { PostHeading } from "../../molecules/PostHeading";
+import { CommentList } from "../../organisms/CommentList";
 
 type PostType = {
   post: Post;
@@ -41,26 +29,20 @@ export const Blog: React.VFC<PostType> = memo((props) => {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const cancelRef: any = useRef();
-  const content: any = post.body;
+  const content = post.body;
   const history = useHistory();
+  const { getImage, imageUrl } = UseGetUrl(post);
+  const { handleDelete } = UseDeletePost(post);
 
   useEffect(() => {
     getUserInfo();
+    getImage();
   }, []);
 
-  const handleDelete = async () => {
-    const input = {
-      id: post.id,
-    };
-    try {
-      await API.graphql(graphqlOperation(deletePost, { input }));
-    } catch (error) {
-      alert(error.message);
-    } finally {
-      onClose();
-      history.push("/adminUser");
-    }
-    dispatch(deletePostFromGlobal(post.id));
+  const handleDeletePost = async () => {
+    handleDelete();
+    onClose();
+    history.push("/adminUser");
   };
 
   const handleEdit = () => {
@@ -69,101 +51,30 @@ export const Blog: React.VFC<PostType> = memo((props) => {
   };
   return (
     <>
-      <Box w={{ base: "90%", md: "640px" }} mx="auto" h="100vh" bg="white">
+      <Box w={{ base: "90%", md: "640px" }} mx="auto" minH="100vh" bg="white">
         <Image
-          src="https://source.unsplash.com/random"
+          src={imageUrl !== "" ? imageUrl : no_image}
           alt="blog image"
           w="100%"
           h={{ base: "300px", md: "450px" }}
           backgroundSize="cover"
         />
-        <Heading as="h1" p={{ base: "1", md: "2" }}>
-          {post.title}
-        </Heading>
-        <Flex p="2">
-          <Flex textAlign="center">
-            <Box h="15px">
-              <AiOutlineClockCircle />
-            </Box>
-            <Text ml="0.5" lineHeight="15px">
-              {post.createdAt}
-            </Text>
-          </Flex>
-          <Flex ml="4">
-            <Box h="15px">
-              <GrUpdate size="14px" />
-            </Box>
-            <Text ml="0.5" lineHeight="15px">
-              {post.updatedAt}
-            </Text>
-          </Flex>
-          <Flex ml="4">
-            <Box h="15px">
-              <AiOutlineHeart />
-            </Box>
-            <Text ml="0.5" lineHeight="15px">
-              0
-            </Text>
-          </Flex>
-        </Flex>
+        <PostHeading post={post} />
         <hr />
         {admin && (
-          <Flex mt="3" ml="2">
-            <Flex
-              textAlign="center"
-              _hover={{ opacity: "0.5", cursor: "pointer" }}
-              onClick={handleEdit}
-            >
-              <Box h="15px">
-                <AiOutlineEdit />
-              </Box>
-              <Text ml="0.5" lineHeight="15px">
-                編集する
-              </Text>
-            </Flex>
-            <Flex
-              textAlign="center"
-              ml="1"
-              _hover={{ opacity: "0.5", cursor: "pointer" }}
-              onClick={() => setIsOpen(true)}
-            >
-              <Box h="15px">
-                <BsTrash />
-              </Box>
-              <Text ml="0.5" lineHeight="15px">
-                削除する
-              </Text>
-            </Flex>
-          </Flex>
+          <PostAdminFunction handleEdit={handleEdit} setIsOpen={setIsOpen} />
         )}
-        <Box p="5">
+        <Box p="5" pb="10">
           <span dangerouslySetInnerHTML={{ __html: marked(content) }} />
         </Box>
+        <CommentList post={post} />
       </Box>
-      <AlertDialog
+      <Dialog
         isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
+        cancelRef={cancelRef}
         onClose={onClose}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Post
-            </AlertDialogHeader>
-
-            <AlertDialogBody>本当に削除しますか？</AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button colorScheme="red" onClick={handleDelete} ml={3}>
-                Delete
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
+        handleDeletePost={handleDeletePost}
+      />
     </>
   );
 });

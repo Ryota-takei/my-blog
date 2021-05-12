@@ -13,6 +13,7 @@ import { updatePost } from "../../../graphql/mutations";
 import { Post } from "../../../types/post";
 import { useHistory } from "react-router";
 import { UseGetAdmin } from "../../../hooks/UseGetAdmin";
+import { UseGetUrl } from "../../../hooks/UseGetUrl";
 
 export const EditPosts: React.VFC = memo(() => {
   const selectPost = useSelector(selectSelectPosts);
@@ -24,10 +25,12 @@ export const EditPosts: React.VFC = memo(() => {
   const history = useHistory();
   const data = moment().format("YYYY-MM-DD");
   const { isAdminCheck } = UseGetAdmin();
+  const { getImage, imageUrl } = UseGetUrl(selectPost);
 
-  useEffect(()=>{
-    isAdminCheck()
-  },[])
+  useEffect(() => {
+    isAdminCheck();
+    getImage();
+  }, []);
 
   const handleSubmit = async () => {
     const input: Post = {
@@ -37,15 +40,15 @@ export const EditPosts: React.VFC = memo(() => {
       createdAt: selectPost.createdAt,
       updatedAt: data,
     };
-
     try {
       await API.graphql(graphqlOperation(updatePost, { input }));
-      dispatch(editPost(input));
-      history.push("/adminUser");
+      const Payload = { ...input, image: selectPost.image };
+      dispatch(editPost(Payload));
       setContent("");
       setTitle("");
+      history.push("/adminUser");
     } catch (error) {
-      alert(error.message);
+      console.log(error);
     }
   };
 
@@ -81,7 +84,11 @@ export const EditPosts: React.VFC = memo(() => {
         content={content}
         setContent={setContent}
       />
-      <FootButtonLayout status="更新する" handleSubmit={handleSubmit} />
+      <FootButtonLayout
+        status="更新する"
+        display="none"
+        handleSubmit={handleSubmit}
+      />
     </Box>
   );
 });
