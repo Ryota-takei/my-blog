@@ -16,7 +16,7 @@ type Prop = {
 
 export const HeaderMenu: React.VFC<Prop> = (props) => {
   const { admin, base, md } = props;
-  console.log(base, md)
+  console.log(base, md);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -65,7 +65,8 @@ export const HeaderMenu: React.VFC<Prop> = (props) => {
           onClick={handleLogout}
         >
           <Flex ml="6">
-            <FiLogOut size="25px" />　
+            <FiLogOut size="25px" />
+            　
           </Flex>
           <Box>
             <Text fontFamily="bold" fontSize="12px">

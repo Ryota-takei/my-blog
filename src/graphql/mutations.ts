@@ -52,6 +52,7 @@ export const updatePost = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+      image
       comments {
         items {
           id
@@ -245,7 +246,7 @@ export const createComment = /* GraphQL */ `
       name
       createdAt
       content
-      updatedAt
+
       post {
         id
         title

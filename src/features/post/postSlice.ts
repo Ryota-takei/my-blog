@@ -12,7 +12,14 @@ export type PostsState = {
 
 const initialState: PostsState = {
   posts: [],
-  selectPost: { id: "", body: "", createdAt: "", title: "", updatedAt: "" },
+  selectPost: {
+    id: "",
+    body: "",
+    createdAt: "",
+    title: "",
+    updatedAt: "",
+    image: "",
+  },
 };
 
 const querySort = Object.assign(
@@ -40,7 +47,6 @@ export const getPostsAsync = createAsyncThunk(
       const res = (await API.graphql(
         graphqlOperation(searchPosts, querySort)
       )) as Posts;
-      console.log(res);
       const response = res.data.searchPosts.items;
       return response;
     } catch (error) {
@@ -66,8 +72,8 @@ export const postSlice = createSlice({
         createdAt: action.payload.createdAt,
         title: action.payload.title,
         updatedAt: action.payload.updatedAt,
+        image: action.payload.image,
       };
-      console.log(typeof state.posts);
       if (newPost) {
         state.posts = [newPost, ...state.posts];
       }

@@ -84,6 +84,7 @@ export const searchPosts = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        image
         comments {
           nextToken
         }
@@ -104,7 +105,7 @@ export const getComment = /* GraphQL */ `
       name
       createdAt
       content
-      updatedAt
+
       post {
         id
         title
@@ -172,7 +173,6 @@ export const searchComments = /* GraphQL */ `
         name
         createdAt
         content
-        updatedAt
         post {
           id
           title

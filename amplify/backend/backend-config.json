@@ -31,5 +31,11 @@
         }
       }
     }
+  },
+  "storage": {
+    "MyBlogImage": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

@@ -13,7 +13,7 @@ const AdminHome: React.VFC = memo(() => {
   useEffect(() => {
     getUserInfo();
   }, []);
-  console.log(posts);
+
 
   return (
     <Box w={{ base: "90%", md: "70%" }} mx="auto" minH="100vh">
@@ -25,7 +25,6 @@ const AdminHome: React.VFC = memo(() => {
             </Link>
           ))}
       </SimpleGrid>
- 
     </Box>
   );
 });

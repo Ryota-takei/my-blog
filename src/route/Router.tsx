@@ -12,7 +12,7 @@ import { selectPosts } from "../features/post/postSlice";
 
 export const Router: React.VFC = () => {
   const posts = useSelector(selectPosts);
-  console.log(posts);
+
   return (
     <>
       <Switch>

@@ -24,7 +24,16 @@ export const Header = () => {
         </Flex>
         <HeaderMenu admin={admin} base="none" md="block" />
       </Flex>
-      <Flex　justifyContent="center" bg="gray.50"w="100%" position="fixed" bottom="0px" alignItems="center"　h="50px">
+      <Flex
+        justifyContent="center"
+        bg="gray.50"
+        w="100%"
+        position="fixed"
+        bottom="0px"
+        alignItems="center"
+        h="50px"
+        display={{ base: "flex", md: "none" }}
+      >
         <HeaderMenu admin={admin} base="block" md="none" />
       </Flex>
     </>

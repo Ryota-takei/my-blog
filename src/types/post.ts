@@ -4,4 +4,5 @@ export type Post = {
   createdAt: string;
   title: string;
   updatedAt: string;
+  image?: string;
 };
