@@ -6,6 +6,14 @@ import { createPost } from "../graphql/mutations";
 import moment from "moment";
 import API, { graphqlOperation } from "@aws-amplify/api";
 
+type Response = {
+  data: {
+    createPost: {
+      id: string;
+    };
+  };
+};
+
 export const UseHandleSubmit = (
   StorageKey: string,
   content: string,
@@ -44,15 +52,18 @@ export const UseHandleSubmit = (
       image: imageName,
     };
     try {
-      await API.graphql(graphqlOperation(createPost, { input }));
+      const res = (await API.graphql(
+        graphqlOperation(createPost, { input })
+      )) as Response;
+      const newPost = { ...input, id: res.data.createPost.id };
       setContent("");
       setTitle("");
       setImageName("");
       localStorage.setItem(StorageKey, "");
-      dispatch(createNewPost(input));
+      dispatch(createNewPost(newPost));
       history.push("/adminUser");
     } catch (error) {
-      console.log(error);
+      alert(error.message);
     }
   };
   return { handleSubmit };

@@ -1,6 +1,6 @@
 import { Image } from "@chakra-ui/image";
 import { Box } from "@chakra-ui/layout";
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect } from "react";
 import { Post } from "../../types/post";
 import { BlogHeading } from "../molecules/BlogHeading";
 import no_image from "../.././images/no_image.jpeg";
@@ -17,8 +17,6 @@ export const BlogCard: React.VFC<PostType> = memo((props) => {
   useEffect(() => {
     getImage();
   }, []);
-
-  console.log(imageUrl);
 
   return (
     <Box minH={{ base: "220px", md: "270px" }} bg="white" mb="2">

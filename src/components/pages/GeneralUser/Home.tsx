@@ -12,7 +12,7 @@ export const Home: React.VFC = memo(() => {
       <SimpleGrid columns={{ base: 2, lg: 3 }} spacing={5}>
         {posts &&
           posts?.map((post, index) => (
-            <Link to={`/${post.title}`} key={index}>
+            <Link to={`/${post.id}`} key={index}>
               <BlogCard post={post} />
             </Link>
           ))}
