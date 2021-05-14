@@ -14,7 +14,7 @@ export const UseDeletePost = (post: Post) => {
     try {
       await API.graphql(graphqlOperation(deletePost, { input }));
     } catch (error) {
-      alert(error.message);
+     alert(error.message);
     }
 
     dispatch(deletePostFromGlobal(post.id));

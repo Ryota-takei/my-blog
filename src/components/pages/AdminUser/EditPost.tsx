@@ -48,7 +48,7 @@ export const EditPosts: React.VFC = memo(() => {
       setTitle("");
       history.push("/adminUser");
     } catch (error) {
-      console.log(error);
+      alert(error.message);
     }
   };
 

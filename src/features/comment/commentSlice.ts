@@ -45,9 +45,7 @@ export const commentSlice = createSlice({
   initialState,
   reducers: {
     countComment: (state, action) => {
-      console.log(action.payload)
       state.count = action.payload;
-      console.log(state.count)
     },
   },
   extraReducers: (builder) => {

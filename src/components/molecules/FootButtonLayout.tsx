@@ -14,7 +14,7 @@ type Props = {
 export const FootButtonLayout: React.VFC<Props> = memo((props) => {
   const { handleSubmit, status, display, onChangePhoto } = props;
   return (
-    <Flex bg="gray.50" h="50px" pt="2" justifyContent="flex-end">
+    <Flex bg="gray.50" h="50px" pt="2" justifyContent="flex-end" mb="45px">
       <SecondaryButton
         color="gray.500"
         onChangePhoto={onChangePhoto}

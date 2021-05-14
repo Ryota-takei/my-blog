@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/layout";
+import { Flex, Heading } from "@chakra-ui/layout";
 import { Link } from "react-router-dom";
 import { selectAdmin } from "../../features/user/userSlice";
 import { useSelector } from "react-redux";
@@ -18,7 +18,7 @@ export const Header = () => {
         <Flex align="center" mr={8} _hover={{ cursor: "pointer" }}>
           <Link to={admin ? "/adminUser" : "/"}>
             <Heading as="h1" fontSize={{ base: "sm", sm: "md", md: "lg" }}>
-              {admin ? "Admin Page" : "My struggles"}
+              {admin ? "Admin Page" : "Programming Blog"}
             </Heading>
           </Link>
         </Flex>

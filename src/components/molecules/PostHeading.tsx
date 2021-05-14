@@ -15,7 +15,6 @@ export const PostHeading:React.VFC<Prop> = (props) => {
   const {post} = props
   const　count = useAppSelector(selectCount)
 
-  console.log(count)
   return (
     <>
     <Heading as="h1" p={{ base: "1", md: "2" }}>

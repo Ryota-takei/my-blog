@@ -21,7 +21,6 @@ export const createPost = /* GraphQL */ `
           name
           createdAt
           content
-          updatedAt
           owner
         }
         nextToken
@@ -51,7 +50,7 @@ export const updatePost = /* GraphQL */ `
       body
       createdAt
       updatedAt
-      owner
+
       image
       comments {
         items {
@@ -60,8 +59,6 @@ export const updatePost = /* GraphQL */ `
           name
           createdAt
           content
-          updatedAt
-          owner
         }
         nextToken
       }
@@ -72,7 +69,6 @@ export const updatePost = /* GraphQL */ `
           postID
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -98,7 +94,6 @@ export const deletePost = /* GraphQL */ `
           name
           createdAt
           content
-          updatedAt
           owner
         }
         nextToken
@@ -246,7 +241,6 @@ export const createComment = /* GraphQL */ `
       name
       createdAt
       content
-
       post {
         id
         title

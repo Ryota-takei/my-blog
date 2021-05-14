@@ -5,11 +5,10 @@ import { UseGetAdmin } from "./hooks/UseGetAdmin";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostsAsync } from "./features/post/postSlice";
-import Amplify, { API, graphqlOperation } from "aws-amplify";
+import Amplify from "aws-amplify";
 import config from "./aws-exports";
 import { UseChangeAuth } from "./hooks/UseChangeAuth";
 import { selectAdmin } from "./features/user/userSlice";
-import { searchComments } from "./graphql/queries";
 import { getCommentAsync } from "./features/comment/commentSlice";
 Amplify.configure(config);
 
@@ -31,10 +30,8 @@ function App() {
   useEffect(() => {
     getUserInfo();
     dispatch(getPostsAsync());
-    dispatch(getCommentAsync())
+    dispatch(getCommentAsync());
   }, []);
-
-
 
   return (
     <div className="App">

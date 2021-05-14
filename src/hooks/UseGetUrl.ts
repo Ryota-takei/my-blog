@@ -7,7 +7,7 @@ export const UseGetUrl = (post: Post) => {
 
   const getImage = async () => {
     if (post.image) {
-      const res = await Storage.get(post.image).then((url) => {
+      await Storage.get(post.image).then((url) => {
         if (typeof url === "string") {
           setImageUrl(url);
         }

@@ -67,7 +67,7 @@ export const postSlice = createSlice({
     },
     createNewPost: (state, action) => {
       const newPost = {
-        id: getUniqueStr(),
+        id: action.payload.id,
         body: action.payload.body,
         createdAt: action.payload.createdAt,
         title: action.payload.title,
@@ -93,7 +93,6 @@ export const postSlice = createSlice({
     builder
       .addCase(getPostsAsync.fulfilled, (state, action) => {
         state.posts = action.payload;
-        console.log(action.payload);
       })
       .addCase(getPostsAsync.rejected, (action) => {
         alert(action);

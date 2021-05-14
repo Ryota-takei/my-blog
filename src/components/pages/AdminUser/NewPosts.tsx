@@ -7,7 +7,7 @@ import { FootButtonLayout } from "../../molecules/FootButtonLayout";
 import { TextEditer } from "../../organisms/TextEditer";
 import { UseHandleSubmit } from "../../../hooks/UseHandleSubmit";
 import { UseGetAdmin } from "../../../hooks/UseGetAdmin";
-import { API, Storage } from "aws-amplify";
+import { Storage } from "aws-amplify";
 
 export const NewPosts: React.VFC = memo(() => {
   const StorageKey = "NewPosts";
@@ -32,7 +32,6 @@ export const NewPosts: React.VFC = memo(() => {
   }, []);
 
   const onChangePhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("testes");
     if (e.target.files !== null) {
       if (!e.target.files[0]) return;
       const file = e.target.files[0];

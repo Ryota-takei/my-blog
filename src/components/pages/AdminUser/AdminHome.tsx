@@ -2,16 +2,17 @@ import { Box, SimpleGrid } from "@chakra-ui/layout";
 import React, { memo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BlogCard } from "../../organisms/BlogCard";
-import { withAuthenticator } from "@aws-amplify/ui-react";
 import { useSelector } from "react-redux";
 import { UseGetAdmin } from "../../../hooks/UseGetAdmin";
 import { selectPosts } from "../../../features/post/postSlice";
 
-const AdminHome: React.VFC = memo(() => {
+export const AdminHome: React.VFC = memo(() => {
   const posts = useSelector(selectPosts);
-  const { getUserInfo } = UseGetAdmin();
+  const { getUserInfo,isAdminCheck } = UseGetAdmin();
+
   useEffect(() => {
     getUserInfo();
+    isAdminCheck()
   }, []);
 
 
@@ -20,7 +21,7 @@ const AdminHome: React.VFC = memo(() => {
       <SimpleGrid columns={{ base: 2, lg: 3 }} spacing={5}>
         {posts &&
           posts?.map((post, index) => (
-            <Link to={`/${post.title}`} key={index}>
+            <Link to={`/${post.id}`} key={index}>
               <BlogCard post={post} />
             </Link>
           ))}
@@ -29,4 +30,3 @@ const AdminHome: React.VFC = memo(() => {
   );
 });
 
-export default withAuthenticator(AdminHome);

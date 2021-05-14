@@ -1,8 +1,7 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
+import { Box, Flex, Text } from "@chakra-ui/layout";
 import { memo } from "react";
-import { AiOutlineClockCircle, AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineClockCircle } from "react-icons/ai";
 import { Post } from "../../types/post";
-import { GrUpdate } from "react-icons/gr";
 
 type PostType = {
   post: Post;
