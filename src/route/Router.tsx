@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Switch, Route } from "react-router";
 import { Header } from "../components/organisms/Header";
-import {AdminHome} from "../components/pages/AdminUser/AdminHome";
+import { AdminHome } from "../components/pages/AdminUser/AdminHome";
 import { EditPosts } from "../components/pages/AdminUser/EditPost";
 import { LoginPage } from "../components/pages/AdminUser/LoginPage";
 import { NewPosts } from "../components/pages/AdminUser/NewPosts";
@@ -49,14 +49,15 @@ export const Router: React.VFC = () => {
                 <EditPosts />
               </Route>
               <Route path={`${url}/*`}>
-                <NotFoundPage/>
+                <NotFoundPage />
               </Route>
             </Switch>
           )}
         ></Route>
-        <Route path="*"><NotFoundPage/></Route>
+        <Route path="*">
+          <NotFoundPage />
+        </Route>
       </Switch>
     </>
   );
 };
-  
