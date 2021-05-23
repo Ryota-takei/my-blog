@@ -23,7 +23,7 @@
     "@types/react-redux": "^7.1.16",
     "aws-amplify": "^3.4.0",
     "dompurify": "^2.2.8",
-    "framer-motion": "^4.1.11",
+    "framer-motion": "^4.1.16",
     "marked": "^2.0.3",
     "moment": "^2.29.1",
     "react": "^17.0.2",
