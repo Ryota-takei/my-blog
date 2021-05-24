@@ -3,16 +3,22 @@
 //  This file was automatically generated and should not be edited.
 
 export type CreatePostInput = {
+  type: string,
   id?: string | null,
   title: string,
   body: string,
-  createdAt: string,
+  image?: string | null,
+  timestamp: number,
+  updatedAt?: number | null,
 };
 
 export type ModelPostConditionInput = {
+  type?: ModelStringInput | null,
   title?: ModelStringInput | null,
   body?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  timestamp?: ModelIntInput | null,
+  updatedAt?: ModelIntInput | null,
   and?: Array< ModelPostConditionInput | null > | null,
   or?: Array< ModelPostConditionInput | null > | null,
   not?: ModelPostConditionInput | null,
@@ -58,13 +64,27 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type Post = {
   __typename: "Post",
+  type?: string,
   id?: string,
   title?: string,
   body?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  image?: string | null,
+  timestamp?: number,
+  updatedAt?: number | null,
   owner?: string | null,
   comments?: ModelCommentConnection,
   likes?: ModelLikeConnection,
@@ -78,12 +98,12 @@ export type ModelCommentConnection = {
 
 export type Comment = {
   __typename: "Comment",
+  type?: string,
   id?: string,
   postID?: string,
   name?: string,
-  createdAt?: string,
+  timestamp?: number,
   content?: string,
-  updatedAt?: string,
   post?: Post,
   owner?: string | null,
 };
@@ -106,10 +126,13 @@ export type Like = {
 };
 
 export type UpdatePostInput = {
+  type?: string | null,
   id: string,
   title?: string | null,
   body?: string | null,
-  createdAt?: string | null,
+  image?: string | null,
+  timestamp?: number | null,
+  updatedAt?: number | null,
 };
 
 export type DeletePostInput = {
@@ -117,17 +140,19 @@ export type DeletePostInput = {
 };
 
 export type UpdateCommentInput = {
+  type?: string | null,
   id: string,
   postID?: string | null,
   name?: string | null,
-  createdAt?: string | null,
+  timestamp?: number | null,
   content?: string | null,
 };
 
 export type ModelCommentConditionInput = {
+  type?: ModelStringInput | null,
   postID?: ModelIDInput | null,
   name?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
+  timestamp?: ModelIntInput | null,
   content?: ModelStringInput | null,
   and?: Array< ModelCommentConditionInput | null > | null,
   or?: Array< ModelCommentConditionInput | null > | null,
@@ -168,27 +193,16 @@ export type ModelLikeConditionInput = {
   not?: ModelLikeConditionInput | null,
 };
 
-export type ModelIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
 export type DeleteLikeInput = {
   id?: string | null,
 };
 
 export type CreateCommentInput = {
+  type: string,
   id?: string | null,
   postID: string,
   name: string,
-  createdAt: string,
+  timestamp: number,
   content: string,
 };
 
@@ -199,10 +213,13 @@ export type CreateLikeInput = {
 };
 
 export type ModelPostFilterInput = {
+  type?: ModelStringInput | null,
   id?: ModelIDInput | null,
   title?: ModelStringInput | null,
   body?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  timestamp?: ModelIntInput | null,
+  updatedAt?: ModelIntInput | null,
   and?: Array< ModelPostFilterInput | null > | null,
   or?: Array< ModelPostFilterInput | null > | null,
   not?: ModelPostFilterInput | null,
@@ -214,117 +231,31 @@ export type ModelPostConnection = {
   nextToken?: string | null,
 };
 
-export type SearchablePostFilterInput = {
-  id?: SearchableIDFilterInput | null,
-  title?: SearchableStringFilterInput | null,
-  body?: SearchableStringFilterInput | null,
-  createdAt?: SearchableStringFilterInput | null,
-  and?: Array< SearchablePostFilterInput | null > | null,
-  or?: Array< SearchablePostFilterInput | null > | null,
-  not?: SearchablePostFilterInput | null,
+export type ModelIntKeyConditionInput = {
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
 };
 
-export type SearchableIDFilterInput = {
-  ne?: string | null,
-  gt?: string | null,
-  lt?: string | null,
-  gte?: string | null,
-  lte?: string | null,
-  eq?: string | null,
-  match?: string | null,
-  matchPhrase?: string | null,
-  matchPhrasePrefix?: string | null,
-  multiMatch?: string | null,
-  exists?: boolean | null,
-  wildcard?: string | null,
-  regexp?: string | null,
-  range?: Array< string | null > | null,
-};
-
-export type SearchableStringFilterInput = {
-  ne?: string | null,
-  gt?: string | null,
-  lt?: string | null,
-  gte?: string | null,
-  lte?: string | null,
-  eq?: string | null,
-  match?: string | null,
-  matchPhrase?: string | null,
-  matchPhrasePrefix?: string | null,
-  multiMatch?: string | null,
-  exists?: boolean | null,
-  wildcard?: string | null,
-  regexp?: string | null,
-  range?: Array< string | null > | null,
-};
-
-export type SearchablePostSortInput = {
-  field?: SearchablePostSortableFields | null,
-  direction?: SearchableSortDirection | null,
-};
-
-export enum SearchablePostSortableFields {
-  id = "id",
-  title = "title",
-  body = "body",
-  createdAt = "createdAt",
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
 }
 
-
-export enum SearchableSortDirection {
-  asc = "asc",
-  desc = "desc",
-}
-
-
-export type SearchablePostConnection = {
-  __typename: "SearchablePostConnection",
-  items?:  Array<Post | null > | null,
-  nextToken?: string | null,
-  total?: number | null,
-};
 
 export type ModelCommentFilterInput = {
+  type?: ModelStringInput | null,
   id?: ModelIDInput | null,
   postID?: ModelIDInput | null,
   name?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
+  timestamp?: ModelIntInput | null,
   content?: ModelStringInput | null,
   and?: Array< ModelCommentFilterInput | null > | null,
   or?: Array< ModelCommentFilterInput | null > | null,
   not?: ModelCommentFilterInput | null,
-};
-
-export type SearchableCommentFilterInput = {
-  id?: SearchableIDFilterInput | null,
-  postID?: SearchableIDFilterInput | null,
-  name?: SearchableStringFilterInput | null,
-  createdAt?: SearchableStringFilterInput | null,
-  content?: SearchableStringFilterInput | null,
-  and?: Array< SearchableCommentFilterInput | null > | null,
-  or?: Array< SearchableCommentFilterInput | null > | null,
-  not?: SearchableCommentFilterInput | null,
-};
-
-export type SearchableCommentSortInput = {
-  field?: SearchableCommentSortableFields | null,
-  direction?: SearchableSortDirection | null,
-};
-
-export enum SearchableCommentSortableFields {
-  id = "id",
-  postID = "postID",
-  name = "name",
-  createdAt = "createdAt",
-  content = "content",
-}
-
-
-export type SearchableCommentConnection = {
-  __typename: "SearchableCommentConnection",
-  items?:  Array<Comment | null > | null,
-  nextToken?: string | null,
-  total?: number | null,
 };
 
 export type ModelLikeFilterInput = {
@@ -344,22 +275,24 @@ export type CreatePostMutationVariables = {
 export type CreatePostMutation = {
   createPost?:  {
     __typename: "Post",
+    type: string,
     id: string,
     title: string,
     body: string,
-    createdAt: string,
-    updatedAt: string,
+    image?: string | null,
+    timestamp: number,
+    updatedAt?: number | null,
     owner?: string | null,
     comments?:  {
       __typename: "ModelCommentConnection",
       items?:  Array< {
         __typename: "Comment",
+        type: string,
         id: string,
         postID: string,
         name: string,
-        createdAt: string,
+        timestamp: number,
         content: string,
-        updatedAt: string,
         owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
@@ -388,22 +321,24 @@ export type UpdatePostMutationVariables = {
 export type UpdatePostMutation = {
   updatePost?:  {
     __typename: "Post",
+    type: string,
     id: string,
     title: string,
     body: string,
-    createdAt: string,
-    updatedAt: string,
+    image?: string | null,
+    timestamp: number,
+    updatedAt?: number | null,
     owner?: string | null,
     comments?:  {
       __typename: "ModelCommentConnection",
       items?:  Array< {
         __typename: "Comment",
+        type: string,
         id: string,
         postID: string,
         name: string,
-        createdAt: string,
+        timestamp: number,
         content: string,
-        updatedAt: string,
         owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
@@ -432,22 +367,24 @@ export type DeletePostMutationVariables = {
 export type DeletePostMutation = {
   deletePost?:  {
     __typename: "Post",
+    type: string,
     id: string,
     title: string,
     body: string,
-    createdAt: string,
-    updatedAt: string,
+    image?: string | null,
+    timestamp: number,
+    updatedAt?: number | null,
     owner?: string | null,
     comments?:  {
       __typename: "ModelCommentConnection",
       items?:  Array< {
         __typename: "Comment",
+        type: string,
         id: string,
         postID: string,
         name: string,
-        createdAt: string,
+        timestamp: number,
         content: string,
-        updatedAt: string,
         owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
@@ -476,19 +413,21 @@ export type UpdateCommentMutationVariables = {
 export type UpdateCommentMutation = {
   updateComment?:  {
     __typename: "Comment",
+    type: string,
     id: string,
     postID: string,
     name: string,
-    createdAt: string,
+    timestamp: number,
     content: string,
-    updatedAt: string,
     post?:  {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -511,19 +450,21 @@ export type DeleteCommentMutationVariables = {
 export type DeleteCommentMutation = {
   deleteComment?:  {
     __typename: "Comment",
+    type: string,
     id: string,
     postID: string,
     name: string,
-    createdAt: string,
+    timestamp: number,
     content: string,
-    updatedAt: string,
     post?:  {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -553,11 +494,13 @@ export type UpdateLikeMutation = {
     updatedAt: string,
     post?:  {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -587,11 +530,13 @@ export type DeleteLikeMutation = {
     updatedAt: string,
     post?:  {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -614,19 +559,21 @@ export type CreateCommentMutationVariables = {
 export type CreateCommentMutation = {
   createComment?:  {
     __typename: "Comment",
+    type: string,
     id: string,
     postID: string,
     name: string,
-    createdAt: string,
+    timestamp: number,
     content: string,
-    updatedAt: string,
     post?:  {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -656,11 +603,13 @@ export type CreateLikeMutation = {
     updatedAt: string,
     post?:  {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -675,36 +624,6 @@ export type CreateLikeMutation = {
   } | null,
 };
 
-export type ListPostsQueryVariables = {
-  filter?: ModelPostFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListPostsQuery = {
-  listPosts?:  {
-    __typename: "ModelPostConnection",
-    items?:  Array< {
-      __typename: "Post",
-      id: string,
-      title: string,
-      body: string,
-      createdAt: string,
-      updatedAt: string,
-      owner?: string | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-      } | null,
-      likes?:  {
-        __typename: "ModelLikeConnection",
-        nextToken?: string | null,
-      } | null,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
 export type GetPostQueryVariables = {
   id?: string,
 };
@@ -712,22 +631,24 @@ export type GetPostQueryVariables = {
 export type GetPostQuery = {
   getPost?:  {
     __typename: "Post",
+    type: string,
     id: string,
     title: string,
     body: string,
-    createdAt: string,
-    updatedAt: string,
+    image?: string | null,
+    timestamp: number,
+    updatedAt?: number | null,
     owner?: string | null,
     comments?:  {
       __typename: "ModelCommentConnection",
       items?:  Array< {
         __typename: "Comment",
+        type: string,
         id: string,
         postID: string,
         name: string,
-        createdAt: string,
+        timestamp: number,
         content: string,
-        updatedAt: string,
         owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
@@ -748,24 +669,24 @@ export type GetPostQuery = {
   } | null,
 };
 
-export type SearchPostsQueryVariables = {
-  filter?: SearchablePostFilterInput | null,
-  sort?: SearchablePostSortInput | null,
+export type ListPostsQueryVariables = {
+  filter?: ModelPostFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
-  from?: number | null,
 };
 
-export type SearchPostsQuery = {
-  searchPosts?:  {
-    __typename: "SearchablePostConnection",
+export type ListPostsQuery = {
+  listPosts?:  {
+    __typename: "ModelPostConnection",
     items?:  Array< {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -777,7 +698,41 @@ export type SearchPostsQuery = {
       } | null,
     } | null > | null,
     nextToken?: string | null,
-    total?: number | null,
+  } | null,
+};
+
+export type ListPostsSortedByTimestampQueryVariables = {
+  type?: string | null,
+  timestamp?: ModelIntKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelPostFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListPostsSortedByTimestampQuery = {
+  listPostsSortedByTimestamp?:  {
+    __typename: "ModelPostConnection",
+    items?:  Array< {
+      __typename: "Post",
+      type: string,
+      id: string,
+      title: string,
+      body: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
+      owner?: string | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+    } | null > | null,
+    nextToken?: string | null,
   } | null,
 };
 
@@ -788,19 +743,21 @@ export type GetCommentQueryVariables = {
 export type GetCommentQuery = {
   getComment?:  {
     __typename: "Comment",
+    type: string,
     id: string,
     postID: string,
     name: string,
-    createdAt: string,
+    timestamp: number,
     content: string,
-    updatedAt: string,
     post?:  {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -826,19 +783,21 @@ export type ListCommentsQuery = {
     __typename: "ModelCommentConnection",
     items?:  Array< {
       __typename: "Comment",
+      type: string,
       id: string,
       postID: string,
       name: string,
-      createdAt: string,
+      timestamp: number,
       content: string,
-      updatedAt: string,
       post?:  {
         __typename: "Post",
+        type: string,
         id: string,
         title: string,
         body: string,
-        createdAt: string,
-        updatedAt: string,
+        image?: string | null,
+        timestamp: number,
+        updatedAt?: number | null,
         owner?: string | null,
       } | null,
       owner?: string | null,
@@ -847,38 +806,40 @@ export type ListCommentsQuery = {
   } | null,
 };
 
-export type SearchCommentsQueryVariables = {
-  filter?: SearchableCommentFilterInput | null,
-  sort?: SearchableCommentSortInput | null,
+export type ListCommentsSortedByTimestampQueryVariables = {
+  type?: string | null,
+  timestamp?: ModelIntKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCommentFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
-  from?: number | null,
 };
 
-export type SearchCommentsQuery = {
-  searchComments?:  {
-    __typename: "SearchableCommentConnection",
+export type ListCommentsSortedByTimestampQuery = {
+  listCommentsSortedByTimestamp?:  {
+    __typename: "ModelCommentConnection",
     items?:  Array< {
       __typename: "Comment",
+      type: string,
       id: string,
       postID: string,
       name: string,
-      createdAt: string,
+      timestamp: number,
       content: string,
-      updatedAt: string,
       post?:  {
         __typename: "Post",
+        type: string,
         id: string,
         title: string,
         body: string,
-        createdAt: string,
-        updatedAt: string,
+        image?: string | null,
+        timestamp: number,
+        updatedAt?: number | null,
         owner?: string | null,
       } | null,
       owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
-    total?: number | null,
   } | null,
 };
 
@@ -896,11 +857,13 @@ export type GetLikeQuery = {
     updatedAt: string,
     post?:  {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -933,11 +896,13 @@ export type ListLikesQuery = {
       updatedAt: string,
       post?:  {
         __typename: "Post",
+        type: string,
         id: string,
         title: string,
         body: string,
-        createdAt: string,
-        updatedAt: string,
+        image?: string | null,
+        timestamp: number,
+        updatedAt?: number | null,
         owner?: string | null,
       } | null,
       owner?: string | null,
@@ -953,22 +918,24 @@ export type OnCreatePostSubscriptionVariables = {
 export type OnCreatePostSubscription = {
   onCreatePost?:  {
     __typename: "Post",
+    type: string,
     id: string,
     title: string,
     body: string,
-    createdAt: string,
-    updatedAt: string,
+    image?: string | null,
+    timestamp: number,
+    updatedAt?: number | null,
     owner?: string | null,
     comments?:  {
       __typename: "ModelCommentConnection",
       items?:  Array< {
         __typename: "Comment",
+        type: string,
         id: string,
         postID: string,
         name: string,
-        createdAt: string,
+        timestamp: number,
         content: string,
-        updatedAt: string,
         owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
@@ -996,22 +963,24 @@ export type OnUpdatePostSubscriptionVariables = {
 export type OnUpdatePostSubscription = {
   onUpdatePost?:  {
     __typename: "Post",
+    type: string,
     id: string,
     title: string,
     body: string,
-    createdAt: string,
-    updatedAt: string,
+    image?: string | null,
+    timestamp: number,
+    updatedAt?: number | null,
     owner?: string | null,
     comments?:  {
       __typename: "ModelCommentConnection",
       items?:  Array< {
         __typename: "Comment",
+        type: string,
         id: string,
         postID: string,
         name: string,
-        createdAt: string,
+        timestamp: number,
         content: string,
-        updatedAt: string,
         owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
@@ -1039,22 +1008,24 @@ export type OnDeletePostSubscriptionVariables = {
 export type OnDeletePostSubscription = {
   onDeletePost?:  {
     __typename: "Post",
+    type: string,
     id: string,
     title: string,
     body: string,
-    createdAt: string,
-    updatedAt: string,
+    image?: string | null,
+    timestamp: number,
+    updatedAt?: number | null,
     owner?: string | null,
     comments?:  {
       __typename: "ModelCommentConnection",
       items?:  Array< {
         __typename: "Comment",
+        type: string,
         id: string,
         postID: string,
         name: string,
-        createdAt: string,
+        timestamp: number,
         content: string,
-        updatedAt: string,
         owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
@@ -1082,19 +1053,21 @@ export type OnCreateCommentSubscriptionVariables = {
 export type OnCreateCommentSubscription = {
   onCreateComment?:  {
     __typename: "Comment",
+    type: string,
     id: string,
     postID: string,
     name: string,
-    createdAt: string,
+    timestamp: number,
     content: string,
-    updatedAt: string,
     post?:  {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -1116,19 +1089,21 @@ export type OnUpdateCommentSubscriptionVariables = {
 export type OnUpdateCommentSubscription = {
   onUpdateComment?:  {
     __typename: "Comment",
+    type: string,
     id: string,
     postID: string,
     name: string,
-    createdAt: string,
+    timestamp: number,
     content: string,
-    updatedAt: string,
     post?:  {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -1150,19 +1125,21 @@ export type OnDeleteCommentSubscriptionVariables = {
 export type OnDeleteCommentSubscription = {
   onDeleteComment?:  {
     __typename: "Comment",
+    type: string,
     id: string,
     postID: string,
     name: string,
-    createdAt: string,
+    timestamp: number,
     content: string,
-    updatedAt: string,
     post?:  {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -1191,11 +1168,13 @@ export type OnCreateLikeSubscription = {
     updatedAt: string,
     post?:  {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -1224,11 +1203,13 @@ export type OnUpdateLikeSubscription = {
     updatedAt: string,
     post?:  {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -1257,11 +1238,13 @@ export type OnDeleteLikeSubscription = {
     updatedAt: string,
     post?:  {
       __typename: "Post",
+      type: string,
       id: string,
       title: string,
       body: string,
-      createdAt: string,
-      updatedAt: string,
+      image?: string | null,
+      timestamp: number,
+      updatedAt?: number | null,
       owner?: string | null,
       comments?:  {
         __typename: "ModelCommentConnection",

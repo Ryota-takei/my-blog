@@ -1,6 +1,6 @@
 export type comment = {
   content: string
-  createdAt: string
+  timestamp:number
   id: string
   name: string
   postID:string  | undefined

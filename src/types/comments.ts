@@ -1,7 +1,9 @@
+import { comment } from "./comment";
+
 export type Comments = {
   data: {
-    searchComments: {
-      items: [{}];
+    listCommentsSortedByTimestamp: {
+      items: comment[];
     };
   };
 };

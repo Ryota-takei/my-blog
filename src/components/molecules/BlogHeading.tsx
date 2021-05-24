@@ -1,6 +1,7 @@
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { memo } from "react";
 import { AiOutlineClockCircle } from "react-icons/ai";
+import { UseGetCreateDate } from "../../hooks/UseGetCreateDate";
 import { Post } from "../../types/post";
 
 type PostType = {
@@ -9,6 +10,7 @@ type PostType = {
 
 export const BlogHeading: React.VFC<PostType> = memo((props) => {
   const { post } = props;
+  const { createDate } = UseGetCreateDate(post.timestamp);
   return (
     <>
       <Flex p="2">
@@ -17,7 +19,7 @@ export const BlogHeading: React.VFC<PostType> = memo((props) => {
             <AiOutlineClockCircle />
           </Box>
           <Text ml="0.5" lineHeight="15px">
-            {post.createdAt}
+            {createDate}
           </Text>
         </Flex>
       </Flex>

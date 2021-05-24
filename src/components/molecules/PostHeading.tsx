@@ -5,6 +5,8 @@ import { FaRegComment } from 'react-icons/fa'
 import { GrUpdate } from 'react-icons/gr'
 import { useAppSelector } from '../../app/hooks'
 import { selectCount } from '../../features/comment/commentSlice'
+import { UseGetCreateDate } from '../../hooks/UseGetCreateDate'
+import { UseGetUpdateDate } from '../../hooks/UseGetUpdateDate'
 import { Post } from '../../types/post'
 
 type Prop = {
@@ -14,7 +16,8 @@ type Prop = {
 export const PostHeading:React.VFC<Prop> = (props) => {
   const {post} = props
   const　count = useAppSelector(selectCount)
-
+  const {createDate} = UseGetCreateDate(post.timestamp)
+   const {updateDate} = UseGetUpdateDate(post.updatedAt)
   return (
     <>
     <Heading as="h1" p={{ base: "1", md: "2" }}>
@@ -26,7 +29,7 @@ export const PostHeading:React.VFC<Prop> = (props) => {
         <AiOutlineClockCircle />
       </Box>
       <Text ml="0.5" lineHeight="15px">
-        {post.createdAt}
+        {createDate}
       </Text>
     </Flex>
     <Flex ml="4">
@@ -34,7 +37,7 @@ export const PostHeading:React.VFC<Prop> = (props) => {
         <GrUpdate size="14px" />
       </Box>
       <Text ml="0.5" lineHeight="15px">
-        {post.updatedAt}
+        {updateDate}
       </Text>
     </Flex>
     <Flex ml="4">

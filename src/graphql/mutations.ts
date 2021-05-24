@@ -8,18 +8,21 @@ export const createPost = /* GraphQL */ `
     $condition: ModelPostConditionInput
   ) {
     createPost(input: $input, condition: $condition) {
+      type
       id
       title
       body
-      createdAt
+      image
+      timestamp
       updatedAt
       owner
       comments {
         items {
+          type
           id
           postID
           name
-          createdAt
+          timestamp
           content
           owner
         }
@@ -45,20 +48,23 @@ export const updatePost = /* GraphQL */ `
     $condition: ModelPostConditionInput
   ) {
     updatePost(input: $input, condition: $condition) {
+      type
       id
       title
       body
-      createdAt
-      updatedAt
-
       image
+      timestamp
+      updatedAt
+      owner
       comments {
         items {
+          type
           id
           postID
           name
-          createdAt
+          timestamp
           content
+          owner
         }
         nextToken
       }
@@ -69,6 +75,7 @@ export const updatePost = /* GraphQL */ `
           postID
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -81,18 +88,21 @@ export const deletePost = /* GraphQL */ `
     $condition: ModelPostConditionInput
   ) {
     deletePost(input: $input, condition: $condition) {
+      type
       id
       title
       body
-      createdAt
+      image
+      timestamp
       updatedAt
       owner
       comments {
         items {
+          type
           id
           postID
           name
-          createdAt
+          timestamp
           content
           owner
         }
@@ -118,17 +128,19 @@ export const updateComment = /* GraphQL */ `
     $condition: ModelCommentConditionInput
   ) {
     updateComment(input: $input, condition: $condition) {
+      type
       id
       postID
       name
-      createdAt
+      timestamp
       content
-      updatedAt
       post {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
         comments {
@@ -148,17 +160,19 @@ export const deleteComment = /* GraphQL */ `
     $condition: ModelCommentConditionInput
   ) {
     deleteComment(input: $input, condition: $condition) {
+      type
       id
       postID
       name
-      createdAt
+      timestamp
       content
-      updatedAt
       post {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
         comments {
@@ -184,10 +198,12 @@ export const updateLike = /* GraphQL */ `
       createdAt
       updatedAt
       post {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
         comments {
@@ -213,10 +229,12 @@ export const deleteLike = /* GraphQL */ `
       createdAt
       updatedAt
       post {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
         comments {
@@ -236,16 +254,19 @@ export const createComment = /* GraphQL */ `
     $condition: ModelCommentConditionInput
   ) {
     createComment(input: $input, condition: $condition) {
+      type
       id
       postID
       name
-      createdAt
+      timestamp
       content
       post {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
         comments {
@@ -271,10 +292,12 @@ export const createLike = /* GraphQL */ `
       createdAt
       updatedAt
       post {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
         comments {

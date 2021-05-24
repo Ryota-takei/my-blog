@@ -3,7 +3,10 @@ import { useToast } from "@chakra-ui/toast";
 import moment from "moment";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { countComment } from "../features/comment/commentSlice";
+import {
+  countComment,
+  createCommentList,
+} from "../features/comment/commentSlice";
 import { createComment } from "../graphql/mutations";
 import { comment } from "../types/comment";
 import { Post } from "../types/post";
@@ -27,9 +30,10 @@ export const UseCreateComment = (post: Post) => {
     }
 
     const input = {
+      type: "comment",
       postID: post.id,
       name: name !== "" ? name : "匿名さん",
-      createdAt: data,
+      timestamp: Math.floor(Date.now() / 1000),
       content: comment,
     };
     try {
@@ -37,12 +41,14 @@ export const UseCreateComment = (post: Post) => {
       if (post.id) {
         const newComment: comment = { ...input, id: post.id };
         setPostComments([newComment, ...postComments]);
+        dispatch(createCommentList(newComment));
       }
       dispatch(countComment(postComments.length + 1));
       setComment("");
       setName("");
     } catch (error) {
       alert(error.message);
+      console.log(error);
     }
   };
 
