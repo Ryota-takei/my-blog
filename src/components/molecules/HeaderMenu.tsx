@@ -33,10 +33,11 @@ export const HeaderMenu: React.VFC<Prop> = (props) => {
     <>
       <Flex align="center" fontSize="sm" flexGrow={2} display="flex">
         <Box
-          display={{ base: base, md: md }}
-          pr={4}
+          // display={{ base: base, md: md }}
+          //デザイン検討中。
+          pr={{base:1, md: 2}}
           ml="auto"
-          mr={{ base: "55px", md: "45px" }}
+          mr={{ base: "10px", md: "25px" }}
           _hover={{ opacity: "0.5" }}
         >
           <Link to={admin ? "/adminUser/newPosts" : "/"}>
@@ -50,7 +51,7 @@ export const HeaderMenu: React.VFC<Prop> = (props) => {
               </Box>
             )}
             <Text fontFamily="bold" fontSize="12px">
-              {admin ? "新規画面" : "Home"}
+              {/* {admin ? "新規画面" : ""} */}
             </Text>
           </Link>
         </Box>
@@ -58,18 +59,18 @@ export const HeaderMenu: React.VFC<Prop> = (props) => {
 
       {admin && (
         <Box
-          display={{ base: base, md: md }}
-          mr={{ base: "55px", md: "30px" }}
+          // display={{ base: base, md: md }}
+          mr={{ base: 0, md: "30px" }}
           _hover={{ opacity: "0.5" }}
           onClick={handleLogout}
         >
-          <Flex ml="6">
+          <Flex ml="3">
             <FiLogOut size="25px" />　
           </Flex>
           <Box>
-            <Text fontFamily="bold" fontSize="12px">
+            {/* <Text fontFamily="bold" fontSize="12px">
               サインアウト
-            </Text>
+            </Text> */}
           </Box>
         </Box>
       )}
