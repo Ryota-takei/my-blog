@@ -1,4 +1,4 @@
-import { Flex, Heading } from "@chakra-ui/layout";
+import { Flex, Text } from "@chakra-ui/layout";
 import { Link } from "react-router-dom";
 import { selectAdmin } from "../../features/user/userSlice";
 import { useSelector } from "react-redux";
@@ -17,14 +17,18 @@ export const Header = () => {
       >
         <Flex align="center" mr={8} _hover={{ cursor: "pointer" }}>
           <Link to={admin ? "/adminUser" : "/"}>
-            <Heading as="h1" fontSize={{ base: "sm", sm: "md", md: "lg" }}>
+            <Text
+              fontSize={{ base: "15px", sm: "16px", md: "24px" }}
+              fontWeight="bold"
+            >
               {admin ? "Admin Page" : "Programming Blog"}
-            </Heading>
+            </Text>
           </Link>
         </Flex>
         <HeaderMenu admin={admin} base="none" md="block" />
       </Flex>
-      <Flex
+      {/* レスポンシブデザイン検討中 */}
+      {/* <Flex
         justifyContent="center"
         bg="gray.50"
         w="100%"
@@ -35,7 +39,7 @@ export const Header = () => {
         display={{ base: "flex", md: "none" }}
       >
         <HeaderMenu admin={admin} base="block" md="none" />
-      </Flex>
+      </Flex> */}
     </>
   );
 };

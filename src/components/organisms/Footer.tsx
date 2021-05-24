@@ -1,4 +1,4 @@
-import { Box, Heading } from "@chakra-ui/layout";
+import { Box, Text } from "@chakra-ui/layout";
 
 export const Footer = () => {
   return (
@@ -9,9 +9,10 @@ export const Footer = () => {
       alignItems="center"
       textAlign="center"
     >
-      <Heading as="h2" fontSize={{ base: "md", md: "lg" }}>
+      <Text  fontSize={{ base: "15px", sm: "16px", md: "24px" }}
+              fontWeight="bold">
         ©︎Programming Blog
-      </Heading>
+      </Text>
     </Box>
   );
 };
