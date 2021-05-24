@@ -1,6 +1,6 @@
 import API, { graphqlOperation } from "@aws-amplify/api";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { searchComments } from "../../graphql/queries";
+import { listCommentsSortedByTimestamp } from "../../graphql/queries";
 import { Comments } from "../../types/comments";
 import { comment } from "../../types/comment";
 import { RootState } from "../../app/store";
@@ -15,27 +15,21 @@ const initialState: CommentsState = {
   count: 0,
 };
 
-const querySort = Object.assign(
-  {},
-  {
-    sort: {
-      field: "createdAt",
-      direction: "desc",
-    },
-    limit: 100,
-  }
-);
 export const getCommentAsync = createAsyncThunk(
   "post/getCommentAsync",
-  async () => {
+  async (_, thunkApi) => {
     try {
       const res = (await API.graphql(
-        graphqlOperation(searchComments, querySort)
+        graphqlOperation(listCommentsSortedByTimestamp, {
+          type: "comment",
+          sortDirection: "DESC",
+          limit: 100,
+        })
       )) as Comments;
-      const response = res.data.searchComments.items;
+      const response = res.data.listCommentsSortedByTimestamp.items;
       return response;
     } catch (error) {
-      return error.message;
+      thunkApi.rejectWithValue(error);
     }
   }
 );
@@ -47,11 +41,16 @@ export const commentSlice = createSlice({
     countComment: (state, action) => {
       state.count = action.payload;
     },
+    createCommentList: (state, action) => {
+      state.comments = [action.payload, ...state.comments]
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getCommentAsync.fulfilled, (state, action) => {
-        state.comments = action.payload
+        if (action.payload !== undefined) {
+          state.comments = action.payload;
+        }
       })
       .addCase(getCommentAsync.rejected, (action) => {
         alert(action);
@@ -59,7 +58,7 @@ export const commentSlice = createSlice({
   },
 });
 
-export const {countComment} = commentSlice.actions;
+export const { countComment, createCommentList } = commentSlice.actions;
 export const selectComments = (state: RootState) => state.comment.comments;
 export const selectCount = (state: RootState) => state.comment.count;
 

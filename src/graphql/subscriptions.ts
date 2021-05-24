@@ -5,20 +5,22 @@
 export const onCreatePost = /* GraphQL */ `
   subscription OnCreatePost($owner: String) {
     onCreatePost(owner: $owner) {
+      type
       id
       title
       body
-      createdAt
+      image
+      timestamp
       updatedAt
       owner
       comments {
         items {
+          type
           id
           postID
           name
-          createdAt
+          timestamp
           content
-          updatedAt
           owner
         }
         nextToken
@@ -40,20 +42,22 @@ export const onCreatePost = /* GraphQL */ `
 export const onUpdatePost = /* GraphQL */ `
   subscription OnUpdatePost($owner: String) {
     onUpdatePost(owner: $owner) {
+      type
       id
       title
       body
-      createdAt
+      image
+      timestamp
       updatedAt
       owner
       comments {
         items {
+          type
           id
           postID
           name
-          createdAt
+          timestamp
           content
-          updatedAt
           owner
         }
         nextToken
@@ -75,20 +79,22 @@ export const onUpdatePost = /* GraphQL */ `
 export const onDeletePost = /* GraphQL */ `
   subscription OnDeletePost($owner: String) {
     onDeletePost(owner: $owner) {
+      type
       id
       title
       body
-      createdAt
+      image
+      timestamp
       updatedAt
       owner
       comments {
         items {
+          type
           id
           postID
           name
-          createdAt
+          timestamp
           content
-          updatedAt
           owner
         }
         nextToken
@@ -110,17 +116,19 @@ export const onDeletePost = /* GraphQL */ `
 export const onCreateComment = /* GraphQL */ `
   subscription OnCreateComment($owner: String) {
     onCreateComment(owner: $owner) {
+      type
       id
       postID
       name
-      createdAt
+      timestamp
       content
-      updatedAt
       post {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
         comments {
@@ -137,17 +145,19 @@ export const onCreateComment = /* GraphQL */ `
 export const onUpdateComment = /* GraphQL */ `
   subscription OnUpdateComment($owner: String) {
     onUpdateComment(owner: $owner) {
+      type
       id
       postID
       name
-      createdAt
+      timestamp
       content
-      updatedAt
       post {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
         comments {
@@ -164,17 +174,19 @@ export const onUpdateComment = /* GraphQL */ `
 export const onDeleteComment = /* GraphQL */ `
   subscription OnDeleteComment($owner: String) {
     onDeleteComment(owner: $owner) {
+      type
       id
       postID
       name
-      createdAt
+      timestamp
       content
-      updatedAt
       post {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
         comments {
@@ -197,10 +209,12 @@ export const onCreateLike = /* GraphQL */ `
       createdAt
       updatedAt
       post {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
         comments {
@@ -223,10 +237,12 @@ export const onUpdateLike = /* GraphQL */ `
       createdAt
       updatedAt
       post {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
         comments {
@@ -249,10 +265,12 @@ export const onDeleteLike = /* GraphQL */ `
       createdAt
       updatedAt
       post {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
         comments {

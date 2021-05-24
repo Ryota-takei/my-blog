@@ -3,7 +3,6 @@ import { useToast } from "@chakra-ui/toast";
 import { useHistory } from "react-router";
 import { createNewPost } from "../features/post/postSlice";
 import { createPost } from "../graphql/mutations";
-import moment from "moment";
 import API, { graphqlOperation } from "@aws-amplify/api";
 
 type Response = {
@@ -26,7 +25,6 @@ export const UseHandleSubmit = (
   const toast = useToast();
   const dispatch = useDispatch();
   const history = useHistory();
-  const data = moment().format("YYYY-MM-DD");
 
   const handleSubmit = async () => {
     if (title === "") {
@@ -45,10 +43,11 @@ export const UseHandleSubmit = (
       return;
     }
     const input = {
+      type: "post",
       title: title,
       body: content,
-      createdAt: data,
-      updatedAt: data,
+      timestamp: Math.floor(Date.now() / 1000),
+      updatedAt: Math.floor(Date.now() / 1000),
       image: imageName,
     };
     try {
@@ -63,6 +62,7 @@ export const UseHandleSubmit = (
       dispatch(createNewPost(newPost));
       history.push("/adminUser");
     } catch (error) {
+      console.log(error);
       alert(error.message);
     }
   };

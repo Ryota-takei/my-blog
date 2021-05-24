@@ -10,6 +10,7 @@ import {
 import { Post } from "../../types/post";
 import { UseCreateComment } from "../../hooks/UseCreateComment";
 import { PaginationBox } from "../molecules/Pagination";
+import { Comment } from "../molecules/Comment";
 
 type Prop = {
   post: Post;
@@ -43,7 +44,6 @@ export const CommentList: React.VFC<Prop> = (props) => {
       (comment) => comment.postID === post.id
     );
     dispatch(countComment(commentsList.length));
-
     setPostComments(commentsList);
   }, [comments]);
 
@@ -62,22 +62,7 @@ export const CommentList: React.VFC<Prop> = (props) => {
           {postComments[0] ? (
             <>
               {currentPostComments.map((comment, index) => (
-                <Box key={index}>
-                  <hr />
-                  <Box
-                    px={{ base: "0", md: "32px" }}
-                    py={{ base: "16px", md: "24px" }}
-                  >
-                    <Flex mr="5px" mb="3">
-                      <Text>{comment.name}</Text>{" "}
-                      <Text ml="auto" display="inline-block">
-                        {comment.createdAt}
-                      </Text>
-                    </Flex>
-                    <Text>{comment.content}</Text>
-                  </Box>
-                  <hr />
-                </Box>
+                <Comment key={index} comment={comment} />
               ))}
             </>
           ) : (

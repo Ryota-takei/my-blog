@@ -1,7 +1,7 @@
 import API, { graphqlOperation } from "@aws-amplify/api";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { searchPosts } from "../../graphql/queries";
+import { listPostsSortedByTimestamp } from "../../graphql/queries";
 import { Posts } from "../../types/posts";
 import { Post } from "../../types/post";
 
@@ -15,23 +15,14 @@ const initialState: PostsState = {
   selectPost: {
     id: "",
     body: "",
-    createdAt: "",
+    timestamp: 0,
     title: "",
-    updatedAt: "",
+    updatedAt: 0,
+    type: "",
     image: "",
   },
 };
 
-const querySort = Object.assign(
-  {},
-  {
-    sort: {
-      field: "createdAt",
-      direction: "desc",
-    },
-    limit: 100,
-  }
-);
 function getUniqueStr(myStrong?: number): string {
   let strong = 1000;
   if (myStrong) strong = myStrong;
@@ -42,15 +33,19 @@ function getUniqueStr(myStrong?: number): string {
 }
 export const getPostsAsync = createAsyncThunk(
   "post/getPostsAsync",
-  async () => {
+  async (_, thunkApi) => {
     try {
       const res = (await API.graphql(
-        graphqlOperation(searchPosts, querySort)
+        graphqlOperation(listPostsSortedByTimestamp, {
+          type: "post",
+          sortDirection: "DESC",
+          limit: 20,
+        })
       )) as Posts;
-      const response = res.data.searchPosts.items;
+      const response = res.data.listPostsSortedByTimestamp.items;
       return response;
     } catch (error) {
-      return error.message;
+      thunkApi.rejectWithValue(error);
     }
   }
 );
@@ -69,9 +64,10 @@ export const postSlice = createSlice({
       const newPost = {
         id: action.payload.id,
         body: action.payload.body,
-        createdAt: action.payload.createdAt,
-        title: action.payload.title,
+        timestamp: action.payload.timestamp,
         updatedAt: action.payload.updatedAt,
+        title: action.payload.title,
+        type: action.payload.type,
         image: action.payload.image,
       };
       if (newPost) {
@@ -92,7 +88,9 @@ export const postSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getPostsAsync.fulfilled, (state, action) => {
-        state.posts = action.payload;
+        if (action.payload !== undefined) {
+          state.posts = action.payload;
+        }
       })
       .addCase(getPostsAsync.rejected, (action) => {
         alert(action);
@@ -100,12 +98,8 @@ export const postSlice = createSlice({
   },
 });
 
-export const {
-  deletePostFromGlobal,
-  createNewPost,
-  setSelectPost,
-  editPost,
-} = postSlice.actions;
+export const { deletePostFromGlobal, createNewPost, setSelectPost, editPost } =
+  postSlice.actions;
 export const selectPosts = (state: RootState) => state.post.posts;
 export const selectSelectPosts = (state: RootState) => state.post.selectPost;
 

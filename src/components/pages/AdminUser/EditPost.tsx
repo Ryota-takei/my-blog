@@ -33,12 +33,12 @@ export const EditPosts: React.VFC = memo(() => {
   }, []);
 
   const handleSubmit = async () => {
-    const input: Post = {
+    const input: any = {
       id: selectPost.id,
       title,
       body: content,
-      createdAt: selectPost.createdAt,
-      updatedAt: data,
+      timestamp: selectPost.timestamp,
+      updatedAt: Math.floor(Date.now() / 1000),
     };
     try {
       await API.graphql(graphqlOperation(updatePost, { input }));

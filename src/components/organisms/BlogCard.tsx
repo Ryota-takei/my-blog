@@ -16,7 +16,7 @@ export const BlogCard: React.VFC<PostType> = memo((props) => {
 
   useEffect(() => {
     getImage();
-  }, [post]);
+  }, [post])
 
   return (
     <Box minH={{ base: "220px", md: "270px" }} bg="white" mb="2">

@@ -2,48 +2,25 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const listPosts = /* GraphQL */ `
-  query ListPosts(
-    $filter: ModelPostFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        title
-        body
-        createdAt
-        updatedAt
-        owner
-        comments {
-          nextToken
-        }
-        likes {
-          nextToken
-        }
-      }
-      nextToken
-    }
-  }
-`;
 export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
+      type
       id
       title
       body
-      createdAt
+      image
+      timestamp
       updatedAt
       owner
       comments {
         items {
+          type
           id
           postID
           name
-          createdAt
+          timestamp
           content
-          updatedAt
           owner
         }
         nextToken
@@ -62,29 +39,22 @@ export const getPost = /* GraphQL */ `
     }
   }
 `;
-export const searchPosts = /* GraphQL */ `
-  query SearchPosts(
-    $filter: SearchablePostFilterInput
-    $sort: SearchablePostSortInput
+export const listPosts = /* GraphQL */ `
+  query ListPosts(
+    $filter: ModelPostFilterInput
     $limit: Int
     $nextToken: String
-    $from: Int
   ) {
-    searchPosts(
-      filter: $filter
-      sort: $sort
-      limit: $limit
-      nextToken: $nextToken
-      from: $from
-    ) {
+    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
-        image
         comments {
           nextToken
         }
@@ -93,24 +63,62 @@ export const searchPosts = /* GraphQL */ `
         }
       }
       nextToken
-      total
+    }
+  }
+`;
+export const listPostsSortedByTimestamp = /* GraphQL */ `
+  query ListPostsSortedByTimestamp(
+    $type: String
+    $timestamp: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPostsSortedByTimestamp(
+      type: $type
+      timestamp: $timestamp
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        type
+        id
+        title
+        body
+        image
+        timestamp
+        updatedAt
+        owner
+        comments {
+          nextToken
+        }
+        likes {
+          nextToken
+        }
+      }
+      nextToken
     }
   }
 `;
 export const getComment = /* GraphQL */ `
   query GetComment($id: ID!) {
     getComment(id: $id) {
+      type
       id
       postID
       name
-      createdAt
+      timestamp
       content
-
       post {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
         comments {
@@ -132,17 +140,19 @@ export const listComments = /* GraphQL */ `
   ) {
     listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        type
         id
         postID
         name
-        createdAt
+        timestamp
         content
-        updatedAt
         post {
+          type
           id
           title
           body
-          createdAt
+          image
+          timestamp
           updatedAt
           owner
         }
@@ -152,39 +162,43 @@ export const listComments = /* GraphQL */ `
     }
   }
 `;
-export const searchComments = /* GraphQL */ `
-  query SearchComments(
-    $filter: SearchableCommentFilterInput
-    $sort: SearchableCommentSortInput
+export const listCommentsSortedByTimestamp = /* GraphQL */ `
+  query ListCommentsSortedByTimestamp(
+    $type: String
+    $timestamp: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCommentFilterInput
     $limit: Int
     $nextToken: String
-    $from: Int
   ) {
-    searchComments(
+    listCommentsSortedByTimestamp(
+      type: $type
+      timestamp: $timestamp
+      sortDirection: $sortDirection
       filter: $filter
-      sort: $sort
       limit: $limit
       nextToken: $nextToken
-      from: $from
     ) {
       items {
+        type
         id
         postID
         name
-        createdAt
+        timestamp
         content
         post {
+          type
           id
           title
           body
-          createdAt
+          image
+          timestamp
           updatedAt
           owner
         }
         owner
       }
       nextToken
-      total
     }
   }
 `;
@@ -197,10 +211,12 @@ export const getLike = /* GraphQL */ `
       createdAt
       updatedAt
       post {
+        type
         id
         title
         body
-        createdAt
+        image
+        timestamp
         updatedAt
         owner
         comments {
@@ -228,10 +244,12 @@ export const listLikes = /* GraphQL */ `
         createdAt
         updatedAt
         post {
+          type
           id
           title
           body
-          createdAt
+          image
+          timestamp
           updatedAt
           owner
         }
