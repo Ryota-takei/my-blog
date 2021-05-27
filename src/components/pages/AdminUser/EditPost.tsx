@@ -7,13 +7,12 @@ import { FootButtonLayout } from "../../molecules/FootButtonLayout";
 import { TextEditer } from "../../organisms/TextEditer";
 import { useDispatch, useSelector } from "react-redux";
 import { editPost, selectSelectPosts } from "../../../features/post/postSlice";
-import moment from "moment";
 import API, { graphqlOperation } from "@aws-amplify/api";
 import { updatePost } from "../../../graphql/mutations";
-import { Post } from "../../../types/post";
 import { useHistory } from "react-router";
 import { UseGetAdmin } from "../../../hooks/UseGetAdmin";
 import { UseGetUrl } from "../../../hooks/UseGetUrl";
+import { PostInput } from "../../../types/postInput";
 
 export const EditPosts: React.VFC = memo(() => {
   const selectPost = useSelector(selectSelectPosts);
@@ -23,7 +22,6 @@ export const EditPosts: React.VFC = memo(() => {
   const [content, setContent] = useState<string>(selectPost.body);
   const dispatch = useDispatch();
   const history = useHistory();
-  const data = moment().format("YYYY-MM-DD");
   const { isAdminCheck } = UseGetAdmin();
   const { getImage, imageUrl } = UseGetUrl(selectPost);
 
@@ -33,7 +31,7 @@ export const EditPosts: React.VFC = memo(() => {
   }, []);
 
   const handleSubmit = async () => {
-    const input: any = {
+    const input: PostInput = {
       id: selectPost.id,
       title,
       body: content,
