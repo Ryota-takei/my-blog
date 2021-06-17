@@ -7,7 +7,7 @@ import { EditPosts } from "../components/pages/AdminUser/EditPost";
 import { LoginPage } from "../components/pages/AdminUser/LoginPage";
 import { NewPosts } from "../components/pages/AdminUser/NewPosts";
 import { Blog } from "../components/pages/GeneralUser/Blog";
-import { Home } from "../components/pages/GeneralUser/Home";
+import { Home } from "../components/pages/Home";
 import { NotFoundPage } from "../components/pages/NotFoundPage";
 import { HeaderFooterLayout } from "../components/templates/HeaderFooterLayout";
 import { selectPosts } from "../features/post/postSlice";

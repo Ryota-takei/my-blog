@@ -10,8 +10,8 @@ import { editPost, selectSelectPosts } from "../../../features/post/postSlice";
 import API, { graphqlOperation } from "@aws-amplify/api";
 import { updatePost } from "../../../graphql/mutations";
 import { useHistory } from "react-router";
-import { UseGetAdmin } from "../../../hooks/UseGetAdmin";
-import { UseGetUrl } from "../../../hooks/UseGetUrl";
+import { useGetAdmin } from "../../../hooks/useGetAdmin";
+import { useGetUrl } from "../../../hooks/useGetUrl";
 import { PostInput } from "../../../types/postInput";
 
 export const EditPosts: React.VFC = memo(() => {
@@ -22,8 +22,8 @@ export const EditPosts: React.VFC = memo(() => {
   const [content, setContent] = useState<string>(selectPost.body);
   const dispatch = useDispatch();
   const history = useHistory();
-  const { isAdminCheck } = UseGetAdmin();
-  const { getImage, imageUrl } = UseGetUrl(selectPost);
+  const { isAdminCheck } = useGetAdmin();
+  const { getImage, imageUrl } = useGetUrl(selectPost);
 
   useEffect(() => {
     isAdminCheck();

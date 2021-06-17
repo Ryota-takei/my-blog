@@ -4,7 +4,7 @@ import { memo, useEffect } from "react";
 import { Post } from "../../types/post";
 import { BlogHeading } from "../molecules/BlogHeading";
 import no_image from "../.././images/no_image.jpeg";
-import { UseGetUrl } from "../../hooks/UseGetUrl";
+import { useGetUrl } from "../../hooks/useGetUrl";
 
 type PostType = {
   post: Post;
@@ -12,7 +12,7 @@ type PostType = {
 
 export const BlogCard: React.VFC<PostType> = memo((props) => {
   const { post } = props;
-  const { getImage, imageUrl } = UseGetUrl(post);
+  const { getImage, imageUrl } = useGetUrl(post);
 
   useEffect(() => {
     getImage();

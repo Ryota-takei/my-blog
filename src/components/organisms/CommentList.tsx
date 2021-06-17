@@ -8,7 +8,7 @@ import {
   selectComments,
 } from "../../features/comment/commentSlice";
 import { Post } from "../../types/post";
-import { UseCreateComment } from "../../hooks/UseCreateComment";
+import { useCreateComment } from "../../hooks/useCreateComment";
 import { PaginationBox } from "../molecules/Pagination";
 import { Comment } from "../molecules/Comment";
 
@@ -26,7 +26,7 @@ export const CommentList: React.VFC<Prop> = (props) => {
     setName,
     postComments,
     setPostComments,
-  } = UseCreateComment(post);
+  } = useCreateComment(post);
   const comments = useSelector(selectComments);
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);

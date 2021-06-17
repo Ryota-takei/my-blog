@@ -3,18 +3,17 @@ import React, { memo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BlogCard } from "../../organisms/BlogCard";
 import { useSelector } from "react-redux";
-import { UseGetAdmin } from "../../../hooks/UseGetAdmin";
+import { useGetAdmin } from "../../../hooks/useGetAdmin";
 import { selectPosts } from "../../../features/post/postSlice";
 
 export const AdminHome: React.VFC = memo(() => {
   const posts = useSelector(selectPosts);
-  const { getUserInfo,isAdminCheck } = UseGetAdmin();
+  const { getUserInfo,isAdminCheck } = useGetAdmin();
 
   useEffect(() => {
     getUserInfo();
     isAdminCheck()
   }, []);
-
 
   return (
     <Box w={{ base: "90%", md: "70%" }} mx="auto" minH="100vh">
