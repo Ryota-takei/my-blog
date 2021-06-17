@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import React from "react";
-import { UseGetCreateDate } from "../../hooks/UseGetCreateDate";
+import { createDate } from "../../utils/getCreateDate";
 import { comment } from "../../types/comment";
 
 type Prop = {
@@ -9,7 +9,6 @@ type Prop = {
 
 export const Comment: React.VFC<Prop> = (props) => {
   const { comment } = props;
-  const { createDate } = UseGetCreateDate(comment.timestamp);
 
   return (
     <Box>
@@ -18,7 +17,7 @@ export const Comment: React.VFC<Prop> = (props) => {
         <Flex mr="5px" mb="3">
           <Text>{comment.name}</Text>{" "}
           <Text ml="auto" display="inline-block">
-            {createDate}
+            {createDate(comment.timestamp)}
           </Text>
         </Flex>
         <Text>{comment.content}</Text>

@@ -3,15 +3,15 @@ import { Box, Flex } from "@chakra-ui/layout";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAdmin } from "../../../features/user/userSlice";
 import { memo, useEffect, useRef, useState } from "react";
-import { UseGetAdmin } from "../../../hooks/UseGetAdmin";
+import { useGetAdmin } from "../../../hooks/useGetAdmin";
 import { Post } from "../../../types/post";
 import "../../../reset.css";
 import marked from "marked";
 import { useHistory } from "react-router";
 import { setSelectPost } from "../../../features/post/postSlice";
 import no_image from "../../../images/no_image.jpeg";
-import { UseGetUrl } from "../../../hooks/UseGetUrl";
-import { UseDeletePost } from "../../../hooks/UseDeletePost";
+import { useGetUrl } from "../../../hooks/useGetUrl";
+import { useDeletePost } from "../../../hooks/useDeletePost";
 import { Dialog } from "../../molecules/Dialog";
 import { PostAdminFunction } from "../../molecules/PostAdminFunction";
 import { PostHeading } from "../../molecules/PostHeading";
@@ -32,14 +32,14 @@ export const Blog: React.VFC<PostType> = memo((props) => {
   const { post } = props;
   const admin = useSelector(selectAdmin);
   const dispatch = useDispatch();
-  const { getUserInfo } = UseGetAdmin();
+  const { getUserInfo } = useGetAdmin();
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const cancelRef: any = useRef();
   const content = post.body;
   const history = useHistory();
-  const { getImage, imageUrl } = UseGetUrl(post);
-  const { handleDelete } = UseDeletePost(post);
+  const { getImage, imageUrl } = useGetUrl(post);
+  const { handleDelete } = useDeletePost(post);
 
   useEffect(() => {
     getUserInfo();

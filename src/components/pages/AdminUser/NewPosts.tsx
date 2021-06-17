@@ -5,8 +5,8 @@ import { AiFillEye } from "react-icons/ai";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { FootButtonLayout } from "../../molecules/FootButtonLayout";
 import { TextEditer } from "../../organisms/TextEditer";
-import { UseHandleSubmit } from "../../../hooks/UseHandleSubmit";
-import { UseGetAdmin } from "../../../hooks/UseGetAdmin";
+import { useHandleSubmit } from "../../../hooks/useHandleSubmit";
+import { useGetAdmin } from "../../../hooks/useGetAdmin";
 import { Storage } from "aws-amplify";
 
 export const NewPosts: React.VFC = memo(() => {
@@ -14,11 +14,11 @@ export const NewPosts: React.VFC = memo(() => {
   const [preview, setPreview] = useState(false);
   const [title, setTitle] = useState("");
   const [imageName, setImageName] = useState("");
-  const { isAdminCheck } = UseGetAdmin();
+  const { isAdminCheck } = useGetAdmin();
   const [content, setContent] = useState<string>(
     localStorage.getItem(StorageKey) || ""
   );
-  const { handleSubmit } = UseHandleSubmit(
+  const { handleSubmit } = useHandleSubmit(
     StorageKey,
     content,
     setContent,
@@ -28,7 +28,7 @@ export const NewPosts: React.VFC = memo(() => {
     setImageName
   );
   useEffect(() => {
-    isAdminCheck();
+    isAdminCheck();　
   }, []);
 
   const onChangePhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {

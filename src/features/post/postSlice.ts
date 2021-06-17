@@ -42,6 +42,7 @@ export const getPostsAsync = createAsyncThunk(
           limit: 20,
         })
       )) as Posts;
+
       const response = res.data.listPostsSortedByTimestamp.items;
       return response;
     } catch (error) {

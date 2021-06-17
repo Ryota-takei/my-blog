@@ -1,28 +1,28 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./theme/theme";
 import { Router } from "./route/Router";
-import { UseGetAdmin } from "./hooks/UseGetAdmin";
+import { useGetAdmin } from "./hooks/useGetAdmin";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostsAsync } from "./features/post/postSlice";
 import Amplify from "aws-amplify";
 import config from "./aws-exports";
-import { UseChangeAuth } from "./hooks/UseChangeAuth";
+import { useChangeAuth } from "./hooks/useChangeAuth";
 import { selectAdmin } from "./features/user/userSlice";
 import { getCommentAsync } from "./features/comment/commentSlice";
 Amplify.configure(config);
 
 function App() {
-  const { getUserInfo } = UseGetAdmin();
+  const { getUserInfo } = useGetAdmin();
   const dispatch = useDispatch();
   const admin = useSelector(selectAdmin);
-  const { authStatus, changeAuth } = UseChangeAuth();
+  const { authStatus, changeAuth } = useChangeAuth();
 
   Amplify.configure({
     ...config,
     aws_appsync_authenticationType: authStatus,
   });
-
+ 
   useEffect(() => {
     changeAuth();
   }, [admin]);
