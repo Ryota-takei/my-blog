@@ -4,7 +4,7 @@ import { deletePostFromGlobal } from "../features/post/postSlice";
 import { deletePost } from "../graphql/mutations";
 import { Post } from "../types/post";
 
-export const UseDeletePost = (post: Post) => {
+export const useDeletePost = (post: Post) => {
   const dispatch = useDispatch();
 
   const handleDelete = async () => {

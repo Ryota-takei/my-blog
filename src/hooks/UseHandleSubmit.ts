@@ -13,7 +13,7 @@ type Response = {
   };
 };
 
-export const UseHandleSubmit = (
+export const useHandleSubmit = (
   StorageKey: string,
   content: string,
   setContent: React.Dispatch<React.SetStateAction<string>>,
@@ -23,7 +23,7 @@ export const UseHandleSubmit = (
   setImageName: React.Dispatch<React.SetStateAction<string>>
 ) => {
   const toast = useToast();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();　
   const history = useHistory();
 
   const handleSubmit = async () => {

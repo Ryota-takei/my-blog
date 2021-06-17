@@ -1,7 +1,6 @@
 import API, { graphqlOperation } from "@aws-amplify/api";
 import { useToast } from "@chakra-ui/toast";
-import moment from "moment";
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   countComment,
@@ -11,13 +10,12 @@ import { createComment } from "../graphql/mutations";
 import { comment } from "../types/comment";
 import { Post } from "../types/post";
 
-export const UseCreateComment = (post: Post) => {
+export const useCreateComment = (post: Post) => {
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
   const [postComments, setPostComments] = useState<Array<comment>>([]);
   const toast = useToast();
   const dispatch = useDispatch();
-  const data = moment().format("YYYY-MM-DD");
 
   const handleSubmit = async () => {
     if (comment === "") {

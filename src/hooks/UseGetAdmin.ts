@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { changeAdmin } from "../features/user/userSlice";
 
-export const UseGetAdmin = () => {
+export const useGetAdmin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const isAdminCheck = async () => {
